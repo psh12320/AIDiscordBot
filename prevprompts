@@ -1,0 +1,55 @@
+# messages=[{"role": "system", "content": f"This is a list of phrases: {wordlist}. You will be given "
+                    #                                     f"a text which was spoken by the user. Based on the "
+                    #                                     f"words in the list, you will find out which phrases in the "
+                    #                                     f"list were not used by the user. You will then "
+                    #                                     f"strictly ONLY output a python list of phrases from the "
+                    #                                     f"list which were stricly NOT USED BY THE USER. The"
+                    #                                     f"output should be a python list. If all words in the "
+                    #                                         f"wordlist have been used, you will return '[]'"},
+                    #           {"role": "user", "content": text}]
+
+# message = [
+                #     {"role": "system", "content": f"The user will be presenting a monotalk about {topic}. The user will "
+                #                               f"be speaking in a {style} style and will be using a {difficulty} "
+                #                               f"standard of English. The user will be using words from a list given "
+                #                               f"to you in this list: {wordlist}. You will now provide feedback in both English and {lang} languages based on the below conditions. 1. Are the words from the list in the "
+                #                                   f"correct context in the response of the user? 2. Are the words from "
+                #                                   f"the list in the correct position in each sentence of the response? "
+                #                                   f"3. Is the pronunciation of the words correct? You must use English and {lang} to "
+                #                                   f"provide an explanation on how they can use any of the words in the list to "
+                #                                   f"respond to your reply. Finally, suggest a better response in "
+                #                                   f"English based on any mistakes made by the user. Your output should be less than 50 words. Here is an expected structure of output:"
+                #                                   f"Feedback (English): [You will provide this] Hint (English): [You will provide this] Feedback ({lang}): [You will provide this] Hint ({lang}): [You will provide this] Better Response in English: [You will provide this]"},
+                #
+                #     {"role": "user", "content": text}
+                # ]
+
+# message = [
+                #     {"role": "system", "content": f"You are asked to begin and maintain a conversation on {topic}. You "
+                #                               f"should "
+                #                               f"maintain a {style} style. You are to utilize the words given in the "
+                #                               f"following list: {wordlist} which is given by the "
+                #                                   f"user during your conversation with the "
+                #                               f"user. The conversation should be at {difficulty} standard of English. An "
+                #                               f"example of starting a conversation would be: Hi, I heard that you like "
+                #                               f"to talk about food. What is your favourite meal and why?"
+                #                                   f"You will now provide feedback in both English and {lang} languages based on the below conditions. 1. Are the words from the list in the "
+                #                                   f"correct context in the response of the user? 2. Are the words from "
+                #                                   f"the list in the correct position in each sentence of the response? "
+                #                                   f"3. Is the pronunciation of the words correct? You must use English and {lang} to "
+                #                                   f"provide a hint on how they can use any of the words in the list to "
+                #                                   f"respond to your reply. Finally, suggest a better response in "
+                #                                   f"English based on any mistakes made by the user. Your output should be less than 50 words. Here is an expected structure of output:"
+                #                                   f"Feedback (English): [You will provide this] Hint (English): [You will provide this] Feedback ({lang}): [You will provide this] Hint ({lang}): [You will provide this] Better Response in English: [You will provide this]"},
+                #     {"role": "user", "content": text}
+                # ]
+
+# messages=[{"role": "system", "content": f"This is a list of phrases: {wordlist}. You will be given "
+                #                                         f"a text which was spoken by the user. Based on the "
+                #                                         f"words in the list, you will find out which phrases in the "
+                #                                         f"list were not used by the user. You will then "
+                #                                         f"strictly ONLY output a python list of phrases from the "
+                #                                         f"list which were strictly NOT USED BY THE USER. The"
+                #                                         f"output should be put into a python list. If all words in "
+                #                                         f"the wordlist have been used, you will return '[]'"},
+                #           {"role": "user", "content": text}]
