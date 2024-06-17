@@ -17,7 +17,7 @@ from pymongo.server_api import ServerApi
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-MONGODB_KEY = os.getenv('MONGODB_CLUSTER_PW')
+# MONGODB_KEY = os.getenv('MONGODB_CLUSTER_PW')
 openai.api_key = OPENAI_API_KEY
 openai_client = OpenAI()
 model = whisper.load_model("base")
