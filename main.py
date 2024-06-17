@@ -102,7 +102,7 @@ async def generate_conversation(user_id, text):
                 )
                 remaining_list = chat_completion.choices[0].message.content
                 generate_audio_reply(qa)
-                await play_audio_in_channel(1247498910616780824, "C:/Users/Shricharan"
+                await play_audio_in_channel(1252097104499834925, "C:/Users/Shricharan"
                                                   "/PycharmProjects"
                                                   "/AIDiscordBot_Test3/speech.mp3")
                 conversation += message
@@ -123,7 +123,7 @@ async def generate_conversation(user_id, text):
                 )
                 qa = chat_completion.choices[0].message.content
                 generate_audio_reply(qa)
-                await play_audio_in_channel(1247498910616780824, "C:/Users/Shricharan"
+                await play_audio_in_channel(1252097104499834925, "C:/Users/Shricharan"
                                                              "/PycharmProjects"
                                                              "/AIDiscordBot_Test3/speech.mp3")
                 # current_conversation_status += message
@@ -148,7 +148,7 @@ async def generate_conversation(user_id, text):
             )
             remaining_list = chat_completion.choices[0].message.content
             generate_audio_reply(qa)
-            await play_audio_in_channel(1247498910616780824, "C:/Users/Shricharan"
+            await play_audio_in_channel(1252097104499834925, "C:/Users/Shricharan"
                                                              "/PycharmProjects"
                                                              "/AIDiscordBot_Test3/speech.mp3")
             conversation += [{"role": "assistant", "content": qa}]
