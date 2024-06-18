@@ -16,9 +16,14 @@ from pymongo.server_api import ServerApi
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+# OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 # MONGODB_KEY = os.getenv('MONGODB_CLUSTER_PW')
-openai.api_key = OPENAI_API_KEY
+# sk-proj-ZKkkKhOE6VX0ybSbNXP2T3BlbkFJLqKbo6L6ly9eSgzLcIR9
+openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.api_base = 'https://ejoyeu.openai.azure.com/'
+openai.api_type = 'azure'
+openai.api_version = '2024-02-15-preview'
+# openai.api_key = OPENAI_API_KEY
 openai_client = OpenAI()
 model = whisper.load_model("base")
 
@@ -82,8 +87,8 @@ async def generate_conversation(user_id, text):
             print("DEBUGGING 1")
             if str(convotype) == "Conversation" or "conversation":
                 message = [
-                    {"role": "system", "content": f"You are to start and maintain a conversation on {topic} in a {style} style using some words from this list: {wordlist}. The conversation should be at a {difficulty} English level. Use the words naturally in context. You must provide feedback in both English and {lang} on: 1. Correct context? 2. Correct position? 3. Correct pronunciation? Give a hint on using the unused phrases from the list and suggest a better response in English if needed. Provide the output in this format: [Your reply to the user] Feedback (English): [You will provide this] Hint (English): [You will provide this] Feedback ({lang}): [You will provide this] Hint ({lang}): [You will provide this] Better Response in English: [You will provide this]"},
-                    {"role": "user", "content": text}
+                    {"role": "system", "content": f"Based on a given text, you are to start and maintain a conversation on {topic} in a {style} style using some words from this list: {wordlist}. The conversation should be at a {difficulty} English level. Use the words naturally in context. You must provide feedback in both English and {lang} on: 1. Correct context? 2. Correct position? 3. Correct pronunciation? Give a hint on using the unused phrases from the list and suggest a better response in English if needed. Provide the output in this format: [Your reply to the user] Feedback (English): [You will provide this] Hint (English): [You will provide this] Feedback ({lang}): [You will provide this] Hint ({lang}): [You will provide this] Better Response in English: [You will provide this]"},
+                    {"role": "user", "content": "Here is the text: " + text}
                 ]
 
                 chat_completion = openai_client.chat.completions.create(
@@ -95,14 +100,14 @@ async def generate_conversation(user_id, text):
                 chat_completion = openai_client.chat.completions.create(
                     model='gpt-3.5-turbo',
                     messages=[
-                        {"role": "system", "content": f"Here is a list of phrases: {wordlist}. Identify which phrases were NOT used by the user from this list. Output a python list of unused phrases. Return '[]' if all phrases were used."},
-                        {"role": "user", "content": text}
+                        {"role": "system", "content": f"Here is a list of phrases: {wordlist}. Identify which phrases were NOT used by the user from this list. A phrase is only considered used if you can explicity see it in the text given to you exactly as it is written in the list. Output a python list of unused phrases. Return '[]' if all phrases were used."},
+                        {"role": "user", "content": "Here is the text: " + text}
                     ],
                     temperature=0.3
                 )
                 remaining_list = chat_completion.choices[0].message.content
                 generate_audio_reply(qa)
-                await play_audio_in_channel(1252097104499834925, "C:/Users/Shricharan"
+                await play_audio_in_channel(1247498910616780824, "C:/Users/Shricharan"
                                                   "/PycharmProjects"
                                                   "/AIDiscordBot_Test3/speech.mp3")
                 conversation += message
@@ -114,7 +119,7 @@ async def generate_conversation(user_id, text):
             elif str(convotype) == "Monotype" or "monotype":
                 message = [
                     {"role": "system", "content": f"The user will present a monotalk about {topic} in a {style} style using a {difficulty} English level and some words from this list: {wordlist}. You must provide feedback in both English and {lang} on: 1. Correct context? 2. Correct position? 3. Correct pronunciation? Give an explanation on using the words and suggest a better response in English if needed. Provide the output in this format: [Your reply to the user] Feedback (English): [You will provide this] Explanation (English): [You will provide this] Feedback ({lang}): [You will provide this] Explanation ({lang}): [You will provide this] Better Response in English: [You will provide this]"},
-                    {"role": "user", "content": text}
+                    {"role": "user", "content": "This is the user's monotalk: " + text}
                 ]
                 chat_completion = openai_client.chat.completions.create(
                     model='gpt-3.5-turbo',
@@ -123,7 +128,7 @@ async def generate_conversation(user_id, text):
                 )
                 qa = chat_completion.choices[0].message.content
                 generate_audio_reply(qa)
-                await play_audio_in_channel(1252097104499834925, "C:/Users/Shricharan"
+                await play_audio_in_channel(1247498910616780824, "C:/Users/Shricharan"
                                                              "/PycharmProjects"
                                                              "/AIDiscordBot_Test3/speech.mp3")
                 # current_conversation_status += message
@@ -132,7 +137,7 @@ async def generate_conversation(user_id, text):
                 return {'assistant': qa, 'empty': True}
         elif currentstatus == 1:
             # conversation already exists
-            conversation += [{"role": "user", "content": text}]
+            conversation += [{"role": "user", "content": "This is the user's reply: " + text}]
             chat_completion = openai_client.chat.completions.create(
                 model='gpt-3.5-turbo',
                 messages=conversation
@@ -141,14 +146,14 @@ async def generate_conversation(user_id, text):
             chat_completion = openai_client.chat.completions.create(
                 model='gpt-3.5-turbo',
                 messages=[
-                    {"role": "system", "content": f"Here is a list of phrases: {wordlist}. Identify which phrases were NOT used by the user from this list. Output a python list of unused phrases. Return '[]' if all phrases were used."},
-                    {"role": "user", "content": text}
+                    {"role": "system", "content": f"Here is a list of phrases: {wordlist}. Identify which phrases were NOT used by the user from this list. A phrase is only considered used if you can explicity see it in the text given to you exactly as it is written in the list. Output a python list of unused phrases. Return '[]' if all phrases were used."},
+                    {"role": "user", "content": "Here is the text: " + text}
                 ],
                 temperature=0.3
             )
             remaining_list = chat_completion.choices[0].message.content
             generate_audio_reply(qa)
-            await play_audio_in_channel(1252097104499834925, "C:/Users/Shricharan"
+            await play_audio_in_channel(1247498910616780824, "C:/Users/Shricharan"
                                                              "/PycharmProjects"
                                                              "/AIDiscordBot_Test3/speech.mp3")
             conversation += [{"role": "assistant", "content": qa}]
